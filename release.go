@@ -11,6 +11,7 @@ import (
 	"io"
 	"io/ioutil"
 	"os"
+	"strings"
 	"unicode/utf8"
 )
 
@@ -22,9 +23,23 @@ func writeRelease(w io.Writer, c *Config, toc []Asset) error {
 	}
 
 	for i := range toc {
-		err = writeReleaseAsset(w, c, &toc[i])
-		if err != nil {
-			return err
+		if c.Separate {
+			p := strings.LastIndex(c.Output, ".")
+			w0, err := os.Create(fmt.Sprintf("%s%02d%s", c.Output[:p], i, c.Output[p:]))
+			if err != nil {
+				return err
+			}
+			fmt.Fprintf(w0, "package %s\n\nimport(\n\t\"os\"\n\t\"time\"\n)\n\n", c.Package)
+			err = writeReleaseAsset(w0, c, &toc[i])
+			w0.Close()
+			if err != nil {
+				return err
+			}
+		} else {
+			err = writeReleaseAsset(w, c, &toc[i])
+			if err != nil {
+				return err
+			}
 		}
 	}
 

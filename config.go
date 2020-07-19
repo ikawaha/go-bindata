@@ -140,6 +140,9 @@ type Config struct {
 	//
 	// This parameter can be provided multiple times.
 	Ignore []*regexp.Regexp
+
+	// When true, separate assets into files.
+	Separate bool
 }
 
 // NewConfig returns a default configuration struct.
@@ -151,6 +154,7 @@ func NewConfig() *Config {
 	c.Debug = false
 	c.Output = "./bindata.go"
 	c.Ignore = make([]*regexp.Regexp, 0)
+	c.Separate = false
 	return c
 }
 

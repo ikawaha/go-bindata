@@ -12,7 +12,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/jteeuwen/go-bindata"
+	"github.com/ikawaha/go-bindata"
 )
 
 func main() {
@@ -52,6 +52,7 @@ func parseArgs() *bindata.Config {
 	flag.Int64Var(&c.ModTime, "modtime", c.ModTime, "Optional modification unix timestamp override for all files.")
 	flag.StringVar(&c.Output, "o", c.Output, "Optional name of the output file to be generated.")
 	flag.BoolVar(&version, "version", false, "Displays version information.")
+	flag.BoolVar(&c.Separate, "separate", false, "Separate Assets into files.")
 
 	ignore := make([]string, 0)
 	flag.Var((*AppendSliceValue)(&ignore), "ignore", "Regex pattern to ignore")

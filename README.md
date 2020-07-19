@@ -8,6 +8,9 @@ It comes with a command line tool in the `go-bindata` sub directory.
 This tool offers a set of command line options, used to customize the
 output being generated.
 
+A Fork from [jteeuwen/go-bindata](https://github.com/jteeuwen/go-bindata) with following changes:
+
+* Add an option to separate asset bodies into files.
 
 ### Installation
 
